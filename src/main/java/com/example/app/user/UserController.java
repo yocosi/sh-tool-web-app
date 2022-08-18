@@ -11,7 +11,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired // Dependency Injection of UserService. To be able to use it
+    @Autowired // Dependency Injection of Pokemon Service. To be able to use it
     public UserController(UserService userService){
         this.userService = userService;
     }

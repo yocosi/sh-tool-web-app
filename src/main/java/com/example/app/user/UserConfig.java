@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class UserConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository repository){
+    CommandLineRunner commandLineRunnerUser(UserRepository repository){
         return args -> {
 //            User yocosi = new User(1L,
 //                    "Yocosi",
