@@ -1,5 +1,6 @@
 package com.example.app.pokemon;
 
+import com.example.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,18 @@ public class PokemonService {
         return pokemonRepository.findAll();
     }
 
-    public Pokemon getPokemonByName(Pokemon pokemon){
-        return pokemonRepository.findPokemonByName(pokemon.getName()).get();
+    public Pokemon getPokemonById(Long pokemonId) {
+        boolean exists = pokemonRepository.existsById(pokemonId);
+        if(!exists){
+            throw new IllegalStateException("error: Unable to find the pokemon by his id");
+        }
+        return pokemonRepository.findById(pokemonId).get();
     }
 
     public void addNewPokemon(Pokemon pokemon){
         Optional<Pokemon> pokemonOptional = pokemonRepository.findPokemonByName(pokemon.getName());
         if (pokemonOptional.isPresent()){
-            throw new IllegalStateException("This pokemon already exists in the database");
+            throw new IllegalStateException("error: This pokemon already exists in the database");
         }
         pokemonRepository.save(pokemon);
     }
@@ -36,7 +41,7 @@ public class PokemonService {
     public void deletePokemon(Long pokemonId){
         boolean exists = pokemonRepository.existsById(pokemonId);
         if (!exists){
-            throw new IllegalStateException("This pokemon doesn't exist. Unable to delete it.");
+            throw new IllegalStateException("error: This pokemon doesn't exist. Unable to delete it.");
         }
         pokemonRepository.deleteById(pokemonId);
     }
@@ -53,7 +58,7 @@ public class PokemonService {
                            String huntMethod,
                            String gameCatched){
         Pokemon pokemon = pokemonRepository.findById(pokemonId)
-                .orElseThrow(() -> new IllegalStateException("Pokemon with id " + pokemonId + " does not exists"));
+                .orElseThrow(() -> new IllegalStateException("error: Pokemon with id " + pokemonId + " does not exists"));
 
         if(name != null && name.length() > 0 && !Objects.equals(pokemon.getName(), name)){
             pokemon.setName(name);
@@ -83,5 +88,4 @@ public class PokemonService {
             pokemon.setGameCatched(gameCatched);
         }
     }
-
 }
