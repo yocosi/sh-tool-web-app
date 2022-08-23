@@ -1,0 +1,21 @@
+<div class="container">
+  <h1> Formulaire d'inscription </h1>
+  <form (ngSubmit)="userRegister()">
+    <div class="form-container">
+      <label>Pseudo : </label>
+      <input type="text" placeholder="Entrez votre pseudo" id="name_input" name="username" [(ngModel)]="user.username"
+        required>
+      <label>Adresse email : </label>
+      <input type="email" placeholder="Entrez votre email" id="email_input" name="email" [(ngModel)]="user.email"
+        required>
+      <label>Mot de passe : </label>
+      <input type="password" placeholder="Entrez votre mot de passe" id="password_input" name="password"
+        [(ngModel)]="user.password" required>
+      <label>Confirmation du mot de passe : </label>
+      <input type="password" placeholder="Confirmez votre mot de passe" id="confirm_password_input"
+        name="password-confirm" [(ngModel)]="user.confirm_password" required>
+      <button type="submit">S'inscrire</button>
+      <!--<button type="button" class="cancelbtn"> Annuler</button>-->
+    </div>
+  </form>
+</div>
